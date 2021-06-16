@@ -34,26 +34,36 @@ const gameModule = (function() {
             grid.addEventListener('click', (event) => {
                 let gridNum = event.target.dataset.grid;
                 console.log(gridNum);
+                
+                if(gameOver == true || gameOver == "tie"){ //if game has ended reset board and wait for next click
+                    resetGame();
+                    return;
+                }
                 if(gameboard[gridNum - 1] !== null) { //do nothing if spot is taken
                     return;
                 }
+
                 gameboard.splice((gridNum - 1), 1, "X");
+                
                 render();
-                swapTurns();
                 addCounter();
                 checkForWin();
-                //checkForGameOver();
+                checkForGameOver();
+                swapTurns();
                 
-                if(playerTurn === true){
+                if(gameOver === true){ //end game if player wins
                     return;
                 }
                 
                 computerMove();
                 render();
-                swapTurns();
+                
                 addCounter();
                 checkForWin();
-                //checkForGameOver();       
+                checkForGameOver();
+                swapTurns();
+                
+                   
         }))
     }
     
@@ -81,17 +91,17 @@ const gameModule = (function() {
     }
     
     const checkForGameOver = function() {
-        if(gameOver == true && playerTurn == false){
-            alert('You Won!');
-            resetGame();
+        if(gameOver == true && playerTurn == true){
+            console.log('You Won!');
+            
         }
-        else if(gameOver == true && playerTurn == true){
-            alert('You Lost');
-            resetGame();
+        else if(gameOver == true && playerTurn == false){
+            console.log('You Lost');
+            
         }
         else if(gameOver == "tie"){
-            alert('You Tied');
-            resetGame();
+            console.log('You Tied');
+           
         }
     }
 
@@ -111,39 +121,39 @@ const gameModule = (function() {
     const checkForWin = function() {
         
         if (gameboard[0] !== null && gameboard[0] == gameboard[1] && gameboard[1] == gameboard[2]){
-            console.log("you win!");
+            
             gameOver = true;
         }
         else if (gameboard[3] !== null && gameboard[3] == gameboard[4] && gameboard[4] == gameboard[5]){
-            console.log("you win!");
+            
             gameOver = true;
         }
         else if (gameboard[6] !== null && gameboard[6] == gameboard[7] && gameboard[7] == gameboard[8]){
-            console.log("you win!");
+            
             gameOver = true;
         }
         else if (gameboard[0] !== null && gameboard[0] == gameboard[3] && gameboard[3] == gameboard[6]){
-            console.log("you win!");
+            
             gameOver = true;
         }
         else if (gameboard[1] !== null && gameboard[1] == gameboard[4] && gameboard[4] == gameboard[7]){
-            console.log("you win!");
+            
             gameOver = true;
         }
         else if (gameboard[2] !== null && gameboard[2] == gameboard[5] && gameboard[5] == gameboard[8]){
-            console.log("you win!");
+            
             gameOver = true;
         }
         else if (gameboard[0] !== null && gameboard[0] == gameboard[4] && gameboard[4] == gameboard[8]){
-            console.log("you win!");
+            
             gameOver = true;
         }
         else if (gameboard[2] !== null && gameboard[2] == gameboard[4] && gameboard[4] == gameboard[6]){
-            console.log("you win!");
+           
             gameOver = true;
         }
         else if (gameboard.every((grid) => grid !== null)){
-            console.log("its a tie!")
+           
             gameOver = "tie";
         }    
     }
