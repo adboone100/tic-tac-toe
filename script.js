@@ -12,11 +12,14 @@ const gameModule = (function() {
 
     let gameOver = false;
 
+    const winnerMessage = document.querySelector(".winner");
+    
+    const turnMessage = document.querySelector(".turn");
+
     
 
     const computerMove = function() {
         let randomNum = Math.floor((Math.random() * 9) + 1); //random num bewteen 1-9
-        console.log(randomNum);
         if(gameboard[randomNum] === null) {
             gameboard.splice(randomNum, 1, "O");
             
@@ -33,7 +36,7 @@ const gameModule = (function() {
         gameGrids.forEach(grid => 
             grid.addEventListener('click', (event) => {
                 let gridNum = event.target.dataset.grid;
-                console.log(gridNum);
+                
                 
                 if(gameOver == true || gameOver == "tie"){ //if game has ended reset board and wait for next click
                     resetGame();
@@ -46,6 +49,7 @@ const gameModule = (function() {
                 gameboard.splice((gridNum - 1), 1, "X");
                 
                 render();
+                removeTurnMessage();
                 addCounter();
                 checkForWin();
                 checkForGameOver();
@@ -67,7 +71,9 @@ const gameModule = (function() {
         }))
     }
     
-    
+    const removeTurnMessage = function() {
+        turnMessage.textContent = "";
+    }
     
 
     const createPlayer = function(name, type) {
@@ -77,7 +83,6 @@ const gameModule = (function() {
 
     const swapTurns = function() {
         playerTurn = !playerTurn;
-        console.log(playerTurn);
     }
     
         //want to attach this to event listener
@@ -92,16 +97,15 @@ const gameModule = (function() {
     
     const checkForGameOver = function() {
         if(gameOver == true && playerTurn == true){
-            console.log('You Won!');
+            winnerMessage.textContent = "YOU WON!!";
             
         }
         else if(gameOver == true && playerTurn == false){
-            console.log('You Lost');
+            winnerMessage.textContent = "YOU LOST!!";
             
         }
         else if(gameOver == "tie"){
-            console.log('You Tied');
-           
+            winnerMessage.textContent = "You tied...";
         }
     }
 
@@ -110,6 +114,8 @@ const gameModule = (function() {
         counter = 0;
         playerTurn = true;
         gameOver = false;
+        winnerMessage.textContent = "";
+        turnMessage.textContent = "You go first!"
         render();
     }
 

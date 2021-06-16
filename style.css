@@ -1,48 +1,95 @@
+
+
 body {
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
+    background: linear-gradient(217deg, transparent, #7eb8da, #be9ddf70 50%),
+                linear-gradient(100deg, transparent, #ffa5d8, #be9ddf 35%),
+                linear-gradient(-143deg, #be9ddf, #92ddea  60%);
+    background-attachment: fixed;
+    color: white;
+    
 }
 
-.gameboard-container{
+.gameboard-container {
 display: grid;
 width: 30vw;
 height: 30vw;
 font-size: 7vw;
 grid-template-columns: 33.3% 33.3% 33.3%;
 grid-template-rows: 33.3% 33.3% 33.3%;
-border: dotted;
 }
 
-.gameboard-grid{
+.gameboard-grid {
 text-align: center;
 }
 
-.gameboard-grid[data-grid="1"]{
-border-style: none solid solid none;
+.title {
+    font-size: 4em;
+    padding-bottom: 50px;
+    font-family: Garamond, "Times New Roman", serif;
 }
+
+.turn {
+    font-size: 1.5em;
+    padding-bottom: 20px;
+    height: 30px;
+    font-family: Garamond, "Times New Roman", serif;
+}
+
+.winner {
+    font-size: 4em;
+    padding-top: 20px;
+    font-family: Garamond, "Times New Roman", serif;
+}   
+
+.gameboard-grid[data-grid="1"]{
+    border-style: none solid solid none;
+    border-color: white;
+    border-width: thick;
+}
+
 .gameboard-grid[data-grid="2"]{
 border-style: none solid solid none;
+border-color: white;
+border-width: thick;
 }
 .gameboard-grid[data-grid="3"]{
     border-style: none none solid none;
+    border-color: white;
+    border-width: thick;
 }
 .gameboard-grid[data-grid="4"]{
     border-style: none solid solid none;
+    border-color: white;
+    border-width: thick;
 }
 .gameboard-grid[data-grid="5"]{
     border-style: none solid solid none;
+    border-color: white;
+    border-width: thick;
 }
 .gameboard-grid[data-grid="6"]{
     border-style: none none solid none;
+    border-color: white;
+    border-width: thick;
 }
 .gameboard-grid[data-grid="7"]{
     border-style: none solid none none;
+    border-color: white;
+    border-width: thick;
 }
 .gameboard-grid[data-grid="8"]{
     border-style: none solid none none;
+    border-color: white;
+    border-width: thick;
 }
 .gameboard-grid[data-grid="9"]{
     border-style: none none none none;
+    border-color: white;
+    border-width: thick;
 }
 
 
