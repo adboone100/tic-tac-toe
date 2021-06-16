@@ -1,49 +1,54 @@
-
-
 body {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(217deg, transparent, #7eb8da, #be9ddf70 50%),
-                linear-gradient(100deg, transparent, #ffa5d8, #be9ddf 35%),
-                linear-gradient(-143deg, #be9ddf, #92ddea  60%);
+    background: linear-gradient(217deg, transparent, #7eb8da, #be9ddf70 40%),
+                linear-gradient(130deg, transparent, #ffa5d8, #be9ddf 30%),
+                linear-gradient(-110deg, #be9ddf, #92ddea  20%);
     background-attachment: fixed;
     color: white;
     
 }
 
 .gameboard-container {
-display: grid;
-width: 30vw;
-height: 30vw;
-font-size: 7vw;
-grid-template-columns: 33.3% 33.3% 33.3%;
-grid-template-rows: 33.3% 33.3% 33.3%;
+    display: grid;
+    width: 30vw;
+    height: 30vw;
+    font-size: 7vw;
+    grid-template-columns: 33.3% 33.3% 33.3%;
+    grid-template-rows: 33.3% 33.3% 33.3%;
 }
 
 .gameboard-grid {
-text-align: center;
+    text-align: center;
 }
 
 .title {
-    font-size: 4em;
-    padding-bottom: 50px;
+    font-size: 5vw;
+    padding-bottom: 30px;
+    padding-top: 5px;
     font-family: Garamond, "Times New Roman", serif;
 }
 
 .turn {
-    font-size: 1.5em;
+    font-size: 1.5vw;
     padding-bottom: 20px;
     height: 30px;
     font-family: Garamond, "Times New Roman", serif;
 }
 
 .winner {
-    font-size: 4em;
+    font-size: 3vw;
     padding-top: 20px;
     font-family: Garamond, "Times New Roman", serif;
 }   
+
+.coin {
+    background: white;
+    width: 20px;
+    height: 20px;
+}
 
 .gameboard-grid[data-grid="1"]{
     border-style: none solid solid none;
@@ -52,9 +57,9 @@ text-align: center;
 }
 
 .gameboard-grid[data-grid="2"]{
-border-style: none solid solid none;
-border-color: white;
-border-width: thick;
+    border-style: none solid solid none;
+    border-color: white;
+    border-width: thick;
 }
 .gameboard-grid[data-grid="3"]{
     border-style: none none solid none;
