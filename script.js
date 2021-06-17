@@ -4,10 +4,12 @@ const gameModule = (function() {
     let playerTurn = true; //player goes 1st
     let counter = 0; //goes up to 8 (for each square)
     let gameOver = false;
+    let coinFlip = false;
     
     const gameGrids = document.querySelectorAll(".gameboard-grid");
     const winnerMessage = document.querySelector(".winner");
     const turnMessage = document.querySelector(".turn");
+    const coinButton = document.querySelector(".coin-flip");
 
     const computerMove = function() {
         let randomNum = Math.floor(Math.random() * 9); //random num bewteen 1-9
@@ -21,51 +23,51 @@ const gameModule = (function() {
             computerMove(); //if random num space is taken retry
         }    
     }
-    console.log(Math.floor(Math.random()));
-    const flipCoin = function(){
+    
+    const flipCoin = function(event){
+        event.preventDefault();
+        if(gameOver == true || gameOver == "tie"){ //if game has ended reset board and wait for next click
+            resetGame();
+            return;
+        }
+        if(coinFlip) return; //do nothing if coin has already been flipped
+        coinFlip = true;
         const flipCoinOutcome = Math.floor(Math.random() * 2); //random num 0-1
         if (flipCoinOutcome == 0) {
             playerTurn = true;
-            console.log("won toss");
+            turnMessage.textContent = "You play first!"
         }
         else if (flipCoinOutcome == 1){
             playerTurn = false;
-            console.log("lost toss");
+            turnMessage.textContent = "You play second!"
         }
     }
     
     const gamePlay = function(event) {
         let gridNum = event.target.dataset.grid;
+
+        if(!coinFlip) return; //if coin is not flipped do nothing
+
         if(gameOver == true || gameOver == "tie"){ //if game has ended reset board and wait for next click
             resetGame();
             return;
         }
-
         if(gameboard[gridNum - 1] !== null) { //do nothing if spot is taken
             return;
         }
-        if(counter == 0){
-            flipCoin();
-        }
-
         if(playerTurn == true){
-
             gameboard.splice((gridNum - 1), 1, "X");
                     
             render();
-            removeTurnMessage();
             addCounter();
             checkForWin();
             checkForGameOver();
             swapTurns();
         }
-
         if(gameOver === true){ //end game if player wins
             return;
         }
-        
         if(playerTurn == false){
-            console.log(playerTurn);
             computerMove();
             render();
             addCounter();
@@ -73,20 +75,6 @@ const gameModule = (function() {
             checkForGameOver();
             swapTurns();
         }         
-    }
-
-    const makeMove = (function() {
-        gameGrids.forEach(grid => 
-            grid.addEventListener('click', gamePlay))
-    })();
-
-    const removeTurnMessage = function() {
-        turnMessage.textContent = "";
-    } 
-
-    const createPlayer = function(name, type) {
-        console.log(name);
-        return {name, type}
     }
 
     const swapTurns = function() {
@@ -101,13 +89,16 @@ const gameModule = (function() {
     
     const checkForGameOver = function() {
         if(gameOver == true && playerTurn == true){
-            winnerMessage.textContent = "YOU WON!!"  
+            winnerMessage.textContent = "YOU WON!!";
+            turnMessage.textContent = "Click the Grid to play again!"; 
         }
         else if(gameOver == true && playerTurn == false){
             winnerMessage.textContent = "YOU LOST!!";   
+            turnMessage.textContent = "Click the Grid to play again!";
         }
         else if(gameOver == "tie"){
             winnerMessage.textContent = "You tied...";
+            turnMessage.textContent = "Click the Grid to play again!";
         }
     }
 
@@ -116,8 +107,10 @@ const gameModule = (function() {
         counter = 0;
         playerTurn = true;
         gameOver = false;
+        flipCoinOutcome = "";
+        coinFlip = false;
         winnerMessage.textContent = "";
-        turnMessage.textContent = "You go first!"
+        turnMessage.textContent = "Flip Coin for First Move!"
         render();
     }
     
@@ -157,39 +150,13 @@ const gameModule = (function() {
 
     render(); //initial render
     
-    
+    //add listeners
 
-    return {
-        createPlayer: createPlayer,
-    }
+    coinButton.addEventListener('click', flipCoin);
+
+    const makeMove = (function() {
+        gameGrids.forEach(grid => 
+            grid.addEventListener('click', gamePlay))
+    })();
     
 })();
-
-
-
-
-
-
-
-const adam = gameModule.createPlayer("Adam", "x");
-console.log(adam.type)
-
-
-//first create empty gameboard array (9 spaces)
-
-//start array with null as the vale for each array value ie. 1:null 2:null
-
-//what functions will i need
-// function to make a move (based on whose turn it is and where player clicks or comp randomly selects)
-// function to check for win (ie 3 of one type in a row)
-// function check if all squares are fill for tie
-// function to pass turn to next player
-// function to reset game
-// function for computer random selection logic
-// function update display for array addition of either player
-// function to create players
-
-
-// gameboard as an array
-
-// each array space correlates to blank space on
