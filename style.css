@@ -8,6 +8,7 @@ body {
                 linear-gradient(-110deg, #be9ddf, #92ddea  20%);
     background-attachment: fixed;
     color: white; 
+    user-select: none;
 }
 
 .gameboard-container {
